@@ -31,7 +31,21 @@ namespace GitHubFirstProject.Codes
             birthDateInDanishFormat = birthDate.ToString("dd-MM-yyyy");
             Age = DateTime.Now.Year - birthDate.Year;
             TimeSpan ts = DateTime.Now - birthDate;
+
             TimeSpanInTotalDays = ts.TotalDays;
+
+            //int ss;
+            //bool pass = int.TryParse("16A", out ss);
+            //if (pass == false)
+            //{
+            //    Console.WriteLine("Does not have type match!");
+            //}
+
+            //int tstd = Convert.ToInt32(TimeSpanInTotalDays);
+            //Console.WriteLine(tstd);
+
+            object boxed = TimeSpanInTotalDays;
+            var unboxed = boxed;
         }
 
         public Person()
