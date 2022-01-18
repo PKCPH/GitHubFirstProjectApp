@@ -12,7 +12,7 @@ namespace GitHubFirstProject.Codes
 
 
 
-        //property
+        //propertyhjkl
 
         private string? _firstName;
         private string? _lastName;
