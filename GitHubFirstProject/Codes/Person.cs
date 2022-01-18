@@ -7,45 +7,128 @@ using System.Threading.Tasks;
 
 namespace GitHubFirstProject.Codes
 {
-    internal class Person
+    internal class Car
     {
 
+       
 
 
-        //propertyhjkl
+        //Internal Data 
+        //is not a get set since it's private so it's not gonna 
+        //go outside of the class
 
-        private string? _firstName;
-        private string? _lastName;
-        public string? birthDateInDanishFormat { get; set; }    
-        public int Age { get; set; }  
-        public double TimeSpanInTotalDays { get; set; }
+        private DateTime latestDateForVision;
 
-        //har ikke en set, så det er en konstant
-        public int PhoneNo { get; init; }
+        private bool mustCallForVision;
 
-        public Person(string firstName, string lastName, DateTime birthDate)
+        //Static Data
+
+        public static int AgeForFirstVision;
+
+        public static int VisionYearRange;
+
+        //Startup Data
+        public string? NameOfOwner { get; set; }
+
+        public string? Brand { get; set; }
+
+        public string? LicensePlate { get; set; }
+
+        public DateTime CarAgeYear { get; set; }
+
+
+        //public string GetCarAgeAndCheckForVision(int CarAgeYear, string LateDateForVision)
+        //{
+        //    DateTime localDate = DateTime.Now;
+
+        //    string stringDate = Convert.ToString(localDate);
+
+        //    return stringDate;
+        //}
+
+
+        //constructor for the Car class
+        public Car(string? nameOfOwner, string? brand, string? licensePlate, DateTime carAgeYear)
         {
-            _firstName = firstName;
-            _lastName = lastName;
-            PhoneNo = 12345678;
-            birthDateInDanishFormat = birthDate.ToString("dd-MM-yyyy");
-            Age = DateTime.Now.Year - birthDate.Year;
-            TimeSpan ts = DateTime.Now - birthDate;
-            TimeSpanInTotalDays = ts.TotalDays;
+
+            NameOfOwner = nameOfOwner;
+            Brand = brand;
+            LicensePlate = licensePlate;
+            CarAgeYear = carAgeYear;
+
         }
 
-        public Person()
+        static Car()
         {
-            _firstName = "Thomas";
-            _lastName = "Jensen";
-            birthDateInDanishFormat = "05-04-1992";
+         AgeForFirstVision = 5;
+
+        VisionYearRange = 2;
         }
 
-        public string? GetFullName()
+        //method for checking if car needs vision
+        public void CheckCarVisionStatus()
         {
-            return $"{_firstName} {_lastName}";
-        }
+            //age is year now minues CarAgeYears (both in years)
+            int age = DateTime.Now.Year - CarAgeYear.Year;
 
+            //if age is greater than 5
+            if (age > AgeForFirstVision)
+            {
+                Console.WriteLine("Insert the latest CarVision date: ");
+                string latestDateForVision = Console.ReadLine();
+
+                
+
+                //fields for day, month and year
+                int day = 0;
+                int month = 0;
+                int year = 0;
+
+                //
+                if (latestDateForVision != null)
+                {
+
+                    //array for day, month and year. Split them into 3 in one array
+                    //then it converts the strings into int
+                    string[] latestDateForVisionSplit = latestDateForVision.Split('-');
+                    day = Convert.ToInt32(latestDateForVisionSplit[0]);
+                    month = Convert.ToInt32(latestDateForVisionSplit[1]);
+                    year = Convert.ToInt32(latestDateForVisionSplit[2]);
+
+
+                }
+
+                //converts latestDateForVision to a DateTime
+                DateTime latestDateForVisionDateTime = Convert.ToDateTime(latestDateForVision);
+
+                //field get new value of DateTime for year, month and day
+                latestDateForVisionDateTime = new DateTime(year, month, day);
+
+                //Timespan respresent a time range
+                //Timespan is present time minus the latestDateForVision
+                TimeSpan ts = DateTime.Now - latestDateForVisionDateTime;
+
+                //if timespan (in years) is greater than VisionYearRange
+                if ((ts.TotalDays / 365) > VisionYearRange)
+                {
+
+                    mustCallForVision = true;
+
+                }
+
+            }
+
+            if (mustCallForVision == true)
+            {
+                Console.WriteLine("Car needs a vision");
+            }
+            else
+            {
+                Console.WriteLine("Car is approved");
+            }
+        
+        }
 
     }
+
 }
